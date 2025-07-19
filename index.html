@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GrowMore - Advanced E-Learning Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>GrowMore</h2>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#courses" class="nav-link">Courses</a></li>
+                <li><a href="#dashboard" class="nav-link">Dashboard</a></li>
+                <li><a href="#quiz" class="nav-link">Quiz</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+            </ul>
+            <div class="nav-controls">
+                <button class="theme-toggle" id="theme-toggle">🌙</button>
+                <button class="login-btn" id="login-btn">Login</button>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">Master Technology Skills</h1>
+                    <p class="hero-subtitle">Join thousands of students learning cutting-edge tech skills with our interactive platform</p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" onclick="scrollToSection('courses')">Start Learning</button>
+                        <button class="btn btn-secondary" onclick="scrollToSection('about')">Learn More</button>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="floating-cards">
+                        <div class="card-float card-1">JavaScript</div>
+                        <div class="card-float card-2">React</div>
+                        <div class="card-float card-3">Python</div>
+                        <div class="card-float card-4">Node.js</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stats-section">
+                <div class="stat-item">
+                    <div class="stat-number">50K+</div>
+                    <div class="stat-label">Students</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">200+</div>
+                    <div class="stat-label">Courses</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Success Rate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Support</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Courses Section -->
+        <section id="courses" class="section">
+            <div class="section-header">
+                <h2>Popular Courses</h2>
+                <div class="course-controls">
+                    <input type="text" class="search-input" id="course-search" placeholder="Search courses...">
+                    <select class="filter-select" id="course-filter">
+                        <option value="all">All Categories</option>
+                        <option value="frontend">Frontend</option>
+                        <option value="backend">Backend</option>
+                        <option value="mobile">Mobile</option>
+                        <option value="data">Data Science</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="courses-grid" id="courses-grid">
+                <!-- Courses will be dynamically loaded here -->
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section">
+            <div class="dashboard-header">
+                <h2>Your Learning Dashboard</h2>
+                <p>Track your progress and continue learning</p>
+            </div>
+            
+            <div class="dashboard-stats">
+                <div class="dashboard-card">
+                    <div class="card-icon">📚</div>
+                    <div class="card-content">
+                        <h3>Courses Enrolled</h3>
+                        <p class="card-number" id="enrolled-count">0</p>
+                    </div>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-icon">✅</div>
+                    <div class="card-content">
+                        <h3>Completed</h3>
+                        <p class="card-number" id="completed-count">0</p>
+                    </div>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-content">
+                        <h3>Quiz Score</h3>
+                        <p class="card-number" id="quiz-score">0%</p>
+                    </div>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-icon">🔥</div>
+                    <div class="card-content">
+                        <h3>Streak</h3>
+                        <p class="card-number" id="streak-count">0</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="progress-section">
+                <h3>Current Progress</h3>
+                <div class="progress-list" id="progress-list">
+                    <!-- Progress items will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section id="quiz" class="section">
+            <div class="quiz-container">
+                <div class="quiz-header">
+                    <h2>Tech Knowledge Quiz</h2>
+                    <p>Test your knowledge and earn points</p>
+                </div>
+                
+                <div class="quiz-content" id="quiz-content">
+                    <div class="quiz-start">
+                        <h3>Ready to test your skills?</h3>
+                        <p>Answer 10 questions about various tech topics</p>
+                        <button class="btn btn-primary" onclick="startQuiz()">Start Quiz</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="about-content">
+                <h2>About Grow More</h2>
+                <p>We're dedicated to providing the best online learning experience for tech students worldwide. Our platform combines cutting-edge technology with expert instruction to help you achieve your goals.</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">💻</div>
+                        <h3>Interactive Learning</h3>
+                        <p>Hands-on projects and real-world applications</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎓</div>
+                        <h3>Expert Instructors</h3>
+                        <p>Learn from industry professionals</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h3>Mobile Learning</h3>
+                        <p>Study anywhere, anytime on any device</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🏆</div>
+                        <h3>Certification</h3>
+                        <p>Earn recognized certificates</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Video Player Modal -->
+    <div class="modal" id="video-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Course Video</h3>
+                <button class="modal-close" onclick="closeVideoModal()">&times;</button>
+            </div>
+            <div class="video-container">
+                <iframe id="course-video" 
+                        width="100%" 
+                        height="400" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Login to Your Account</h3>
+                <button class="modal-close" onclick="closeLoginModal()">&times;</button>
+            </div>
+            <form class="login-form" id="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progress-bar"></div>
+    
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3>growMore</h3>
+                <p>Empowering future developers with real-world skills, projects, and job-ready training.</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#courses">Courses</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-social">
+                <h4>Follow Us</h4>
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/abhithenext/"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/abhithenext"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/ABHIII034"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 growMore. All rights reserved. <a href="https://www.linkedin.com/in/abhithenext" style="text-decoration: none; color: black;">by Abhishek Sonawane</a></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
