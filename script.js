@@ -1,4 +1,4 @@
-// Application State
+
 var currentUser = null;
 var courses = [];
 var userProgress = {};
@@ -7,7 +7,7 @@ var currentQuizIndex = 0;
 var quizScore = 0;
 var isQuizActive = false;
 
-// Initialize Application
+
 document.addEventListener('DOMContentLoaded', function() {
     initializeApp();
     setupEventListeners();
@@ -17,20 +17,19 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializeApp() {
-    // Load user data from localStorage
+ 
     var savedUser = localStorage.getItem('growMoreUser');
     if (savedUser) {
         currentUser = JSON.parse(savedUser);
         updateLoginStatus();
     }
 
-    // Load user progress
     var savedProgress = localStorage.getItem('growMoreProgress');
     if (savedProgress) {
         userProgress = JSON.parse(savedProgress);
     }
 
-    // Set initial theme
+
     var savedTheme = localStorage.getItem('growMoreTheme') || 'light';
     setTheme(savedTheme);
 
@@ -49,7 +48,7 @@ function setupEventListeners() {
         });
     });
 
-    // Hamburger menu
+
     var hamburger = document.getElementById('hamburger');
     var navMenu = document.getElementById('nav-menu');
     hamburger.addEventListener('click', function() {
@@ -69,39 +68,36 @@ function setupEventListeners() {
     var loginForm = document.getElementById('login-form');
     loginForm.addEventListener('submit', handleLogin);
 
-    // Course search and filter
     var searchInput = document.getElementById('course-search');
     var filterSelect = document.getElementById('course-filter');
     searchInput.addEventListener('input', filterCourses);
     filterSelect.addEventListener('change', filterCourses);
 
-    // Close modals when clicking outside
+
     document.addEventListener('click', function(e) {
         if (e.target.classList.contains('modal')) {
             closeModals();
         }
     });
 
-    // Keyboard navigation
+  
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             closeModals();
         }
     });
 
-    // Scroll progress bar
     window.addEventListener('scroll', updateProgressBar);
 }
 
-// Navigation Functions
 function navigateToSection(sectionId) {
-    // Hide all sections
+   
     var sections = document.querySelectorAll('.section');
     sections.forEach(function(section) {
         section.classList.remove('active');
     });
 
-    // Show target section
+
     var targetSection = document.getElementById(sectionId);
     if (targetSection) {
         targetSection.classList.add('active');
@@ -251,16 +247,14 @@ function renderCourses() {
 function createCourseCard(course) {
     var card = document.createElement('div');
     card.className = 'course-card';
-    
-    // Create course image div with background image
+
     var courseImageDiv = document.createElement('div');
     courseImageDiv.className = 'course-image';
     courseImageDiv.style.backgroundImage = 'url(' + course.imageUrl + ')';
     courseImageDiv.style.backgroundSize = 'cover';
     courseImageDiv.style.backgroundPosition = 'center';
     courseImageDiv.style.backgroundRepeat = 'no-repeat';
-    
-    // Create course content
+   
     var courseContent = document.createElement('div');
     courseContent.className = 'course-content';
     
@@ -393,7 +387,6 @@ function closeVideoModal() {
     modal.classList.remove('active');
 }
 
-// Authentication Functions
 function openLoginModal() {
     var modal = document.getElementById('login-modal');
     modal.classList.add('active');
@@ -409,7 +402,7 @@ function handleLogin(e) {
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
 
-    // Simple authentication simulation
+ 
     if (username && password) {
         currentUser = {
             id: 1,
@@ -423,7 +416,7 @@ function handleLogin(e) {
         closeLoginModal();
         showNotification('Login successful!', 'success');
         
-        // Clear form
+    
         document.getElementById('login-form').reset();
     } else {
         showNotification('Please enter both username and password', 'error');
@@ -449,7 +442,7 @@ function logout() {
     showNotification('Logged out successfully', 'info');
 }
 
-// Dashboard Functions
+
 function updateDashboard() {
     var enrolledCount = Object.keys(userProgress).length;
     var completedCount = Object.values(userProgress).filter(function(p) { return p === 100; }).length;
@@ -520,7 +513,7 @@ function calculateStreak() {
     return savedStreak ? parseInt(savedStreak) : 0;
 }
 
-// Quiz Functions
+// Quiz 
 function loadQuizQuestions() {
     quizQuestions = [
         {
@@ -679,8 +672,7 @@ function selectOption(optionIndex) {
         option.classList.remove('selected');
     });
     options[optionIndex].classList.add('selected');
-    
-    // Store selected answer
+
     var nextBtn = document.getElementById('next-question');
     nextBtn.disabled = false;
     nextBtn.setAttribute('data-selected', optionIndex);
@@ -707,14 +699,12 @@ function nextQuestion() {
 function endQuiz() {
     isQuizActive = false;
     var percentage = Math.round((quizScore / quizQuestions.length) * 100);
-    
-    // Save quiz score
+
     var savedScores = localStorage.getItem('growMoreQuizScores');
     var scores = savedScores ? JSON.parse(savedScores) : [];
     scores.push(percentage);
     localStorage.setItem('growMoreQuizScores', JSON.stringify(scores));
-    
-    // Update streak
+   
     var currentStreak = calculateStreak();
     var newStreak = percentage >= 70 ? currentStreak + 1 : 0;
     localStorage.setItem('growMoreStreak', newStreak.toString());
@@ -763,7 +753,6 @@ function getScoreMessage(percentage) {
     return "Keep studying and try again!";
 }
 
-// Utility Functions
 function saveProgress() {
     localStorage.setItem('growMoreProgress', JSON.stringify(userProgress));
 }
@@ -778,12 +767,12 @@ function closeModals() {
 function showNotification(message, type) {
     if (type === undefined) type = 'info';
     
-    // Create notification element
+  
     var notification = document.createElement('div');
     notification.className = 'notification notification-' + type;
     notification.textContent = message;
     
-    // Style the notification
+
     var bgColor = type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6';
     
     notification.style.position = 'fixed';
@@ -799,7 +788,7 @@ function showNotification(message, type) {
     
     document.body.appendChild(notification);
     
-    // Remove after 3 seconds
+
     setTimeout(function() {
         notification.style.animation = 'slideOut 0.3s ease-out';
         setTimeout(function() {
@@ -819,7 +808,7 @@ function updateProgressBar() {
     progressBar.style.width = progress + '%';
 }
 
-// Performance optimizations
+
 function debounce(func, wait) {
     var timeout;
     return function executedFunction() {
@@ -834,7 +823,6 @@ function debounce(func, wait) {
     };
 }
 
-// Debounced search function
 var debouncedSearch = debounce(filterCourses, 300);
 
 // Add animation styles
@@ -851,7 +839,7 @@ style.textContent =
     '}';
 document.head.appendChild(style);
 
-// Initialize intersection observer for animations
+
 var observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -865,7 +853,7 @@ var observer = new IntersectionObserver(function(entries) {
     });
 }, observerOptions);
 
-// Observe course cards when they're created
+
 function observeCourseCards() {
     var courseCards = document.querySelectorAll('.course-card');
     courseCards.forEach(function(card) {
@@ -873,7 +861,6 @@ function observeCourseCards() {
     });
 }
 
-// Add keyboard shortcuts
 document.addEventListener('keydown', function(e) {
     if (e.ctrlKey || e.metaKey) {
         switch(e.key) {
@@ -897,10 +884,10 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// Add smooth scrolling for better UX
+
 document.documentElement.style.scrollBehavior = 'smooth';
 
-// Initialize performance monitoring
+
 var performanceMetrics = {
     pageLoadTime: 0,
     interactionTime: 0
@@ -910,13 +897,12 @@ window.addEventListener('load', function() {
     performanceMetrics.pageLoadTime = performance.now();
 });
 
-// Add error handling for better user experience
 window.addEventListener('error', function(e) {
     console.error('Application error:', e.error);
     showNotification('An error occurred. Please try again.', 'error');
 });
 
-// Add unhandled promise rejection handling
+
 window.addEventListener('unhandledrejection', function(e) {
     console.error('Unhandled promise rejection:', e.reason);
     showNotification('An error occurred. Please try again.', 'error');
